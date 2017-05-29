@@ -22,8 +22,11 @@ namespace ExampleProxyWebClient
                     if (!string.IsNullOrWhiteSpace(ConfigWrapper.Instance.ProxyUrl))
                     {
                         var proxy = new WebProxy(ConfigWrapper.Instance.ProxyUrl, true);
+                        Uri uri = new Uri("http://tempuri.org/");
+                        ICredentials credentials = CredentialCache.DefaultCredentials;                        
+                        proxy.Credentials = credentials;
                         client.Proxy = proxy;
-                        Console.WriteLine($"Proxy configurated at '{ConfigWrapper.Instance.ProxyUrl}'");
+                        Console.WriteLine($"Proxy configurated at '{ConfigWrapper.Instance.ProxyUrl}'");                        
                     }
                     var data = client.DownloadData($"https://maps.googleapis.com/maps/api/geocode/xml?sensor=false&key={key}&address={encodedAddress}");
 
